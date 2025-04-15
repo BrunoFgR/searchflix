@@ -56,6 +56,9 @@ class User
       {
         sequelize,
         tableName: "users",
+        defaultScope: {
+          attributes: { exclude: ["password", "password_hash"] },
+        },
         hooks: {
           beforeSave: async (user: User) => {
             if (user.password) {

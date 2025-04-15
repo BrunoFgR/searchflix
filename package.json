@@ -28,8 +28,10 @@
     "express": "^5.1.0",
     "pg": "^8.14.1",
     "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.7",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "tsyringe": "^4.9.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
