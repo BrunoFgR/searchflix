@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:server": "ts-node-dev --inspect --transpile-only src/shared/infra/http/server.ts"
+    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only src/shared/infra/http/server.ts",
+    "migration:generate": "npx sequelize-cli migration:generate --name",
+    "migration:run": "npx sequelize-cli db:migrate",
+    "migration:revert": "npx sequelize-cli db:migrate:undo",
+    "migration:revert:all": "npx sequelize-cli db:migrate:undo:all"
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,8 @@
   },
   "homepage": "https://github.com/BrunoFgR/searchflix#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "pg": "^8.14.1",
     "pg-hstore": "^2.3.4",
@@ -27,8 +33,12 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
+    "@types/node": "^22.14.1",
+    "@types/sequelize": "^4.28.20",
+    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   }
 }
