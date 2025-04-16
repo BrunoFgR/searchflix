@@ -1,14 +1,18 @@
 import { inject, injectable } from "tsyringe";
 
-import { IUserRepository } from "../repositories/IUserRepository";
-import { AppErrors } from "@shared/errors/AppErrors";
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
+import { IUserRepository } from "../repositories";
+import { AppErrors } from "@shared/errors";
+import { ICreateUserDTO } from "../dtos";
+import { IHashProvider } from "../providers/HashProvider/repositories";
 
 @injectable()
 class CreateUserService {
   constructor(
     @inject("UserRepository")
     private userRepository: IUserRepository,
+
+    @inject("HashProvider")
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute(data: ICreateUserDTO): Promise<void> {
@@ -21,7 +25,12 @@ class CreateUserService {
       );
     }
 
-    await this.userRepository.create(data);
+    const passwordHash = await this.hashProvider.generateHash(data.password);
+
+    await this.userRepository.create({
+      ...data,
+      password_hash: passwordHash,
+    });
   }
 }
 

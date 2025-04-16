@@ -1,5 +1,4 @@
-import { DataTypes, Model, Sequelize, Optional } from "sequelize";
-import bcrypt from "bcryptjs";
+import { DataTypes, Model, Sequelize, Optional, ModelStatic } from "sequelize";
 
 interface UserAttributes {
   id: string;
@@ -45,7 +44,6 @@ class User
         },
         password_hash: {
           type: DataTypes.STRING,
-          defaultValue: "",
           allowNull: false,
         },
         password: {
@@ -57,21 +55,14 @@ class User
         sequelize,
         tableName: "users",
         underscored: true,
-        hooks: {
-          beforeSave: async (user: User) => {
-            if (user.password) {
-              user.password_hash = await bcrypt.hash(user.password, 10);
-            }
-          },
-        },
       },
     );
 
     return this;
   }
 
-  public checkPassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password_hash);
+  static associate(models: { [key: string]: ModelStatic<Model> }) {
+    User.hasMany(models.Movie, { foreignKey: "user_id" });
   }
 }
 

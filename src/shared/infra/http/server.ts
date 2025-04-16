@@ -1,9 +1,8 @@
 import "reflect-metadata";
-
 import express, { NextFunction, Request, Response } from "express";
 
 import "@shared/container";
-import { AppErrors } from "@shared/errors/AppErrors";
+import { AppErrors } from "@shared/errors";
 import "@shared/infra/db/sequelize";
 import { router } from "./routes";
 

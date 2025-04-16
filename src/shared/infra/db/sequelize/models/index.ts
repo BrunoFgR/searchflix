@@ -1,3 +1,4 @@
-import { User } from "@modules/users/infra/sequelize/entities/user";
+import { User } from "@modules/users/infra/sequelize/entities";
+import { Movie } from "@modules/movies/infra/sequelize/entities";
 
-export { User };
+export { User, Movie };

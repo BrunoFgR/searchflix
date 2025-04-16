@@ -1,6 +1,5 @@
 import { IUserRepository } from "@modules/users/repositories/IUserRepository";
 import { User } from "../entities";
-import { ICreateUserDTO } from "@modules/users/dtos/ICreateUserDTO";
 
 class UserRepository implements IUserRepository {
   private userRepository: typeof User;
@@ -23,12 +22,10 @@ class UserRepository implements IUserRepository {
     await user.save();
   }
 
-  async create(data: ICreateUserDTO): Promise<void> {
+  async create(
+    data: Pick<User, "email" | "password" | "password_hash" | "name">,
+  ): Promise<void> {
     await this.userRepository.create(data);
-  }
-
-  async comparePasswords(user: User, password: string): Promise<boolean> {
-    return await user.checkPassword(password);
   }
 }
 

@@ -3,6 +3,7 @@ import { AppErrors } from "@shared/errors/AppErrors";
 import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 import { IUserRepository } from "../repositories/IUserRepository";
+import { IHashProvider } from "../providers/HashProvider/repositories/IHashProvider";
 
 interface IRequest {
   email: string;
@@ -23,6 +24,9 @@ class AuthenticateUserService {
   constructor(
     @inject("UserRepository")
     private userRepository: IUserRepository,
+
+    @inject("HashProvider")
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -32,9 +36,9 @@ class AuthenticateUserService {
       throw new AppErrors("Incorrect email or password", 401);
     }
 
-    const passwordMatched = await this.userRepository.comparePasswords(
-      user,
+    const passwordMatched = await this.hashProvider.compareHash(
       password,
+      user.password_hash,
     );
 
     if (!passwordMatched) {
