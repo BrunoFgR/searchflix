@@ -1,4 +1,4 @@
-import { ICreateMovieDTO, IUpdateMovieDTO } from "@modules/movies/dtos";
+import { ICreateMovieDTO } from "@modules/movies/dtos";
 import { IMovieRepository } from "@modules/movies/repositories";
 import { Movie } from "../entities";
 import { AppErrors } from "@shared/errors";
@@ -18,18 +18,12 @@ class MovieRepository implements IMovieRepository {
     return await this.movieRepository.findByPk(id);
   }
 
-  async list(): Promise<Movie[]> {
-    return await this.movieRepository.findAll();
+  async listByUserId(user_id: string): Promise<Movie[]> {
+    return await this.movieRepository.findAll({ where: { user_id } });
   }
 
-  async update(id: string, data: IUpdateMovieDTO): Promise<Movie> {
-    const movie = await this.movieRepository.findByPk(id);
-
-    if (!movie) {
-      throw new AppErrors("Movie not found");
-    }
-
-    await movie.update(data);
+  async update(movie: Movie): Promise<Movie> {
+    await movie.save();
     return movie;
   }
 

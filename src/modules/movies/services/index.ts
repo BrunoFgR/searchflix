@@ -1,3 +1,4 @@
 import { CreateMovieService } from "./CreateMovieService";
+import { ListMovieByUserIdService } from "./ListMovieByUserIdService";
 
-export { CreateMovieService };
+export { CreateMovieService, ListMovieByUserIdService };

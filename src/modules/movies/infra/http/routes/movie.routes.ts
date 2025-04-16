@@ -7,5 +7,8 @@ const movieRoutes = Router();
 
 movieRoutes.use(ensureAuthenticated);
 movieRoutes.post("/", movieController.create);
+movieRoutes.get("/", movieController.list);
+movieRoutes.put("/:id", movieController.update);
+movieRoutes.delete("/:id", movieController.delete);
 
 export { movieRoutes };
