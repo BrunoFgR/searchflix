@@ -3,7 +3,7 @@ import "reflect-metadata";
 import express, { NextFunction, Request, Response } from "express";
 
 import "@shared/container";
-import { AppError } from "@shared/errors/AppErrors";
+import { AppErrors } from "@shared/errors/AppErrors";
 import "@shared/infra/db/sequelize";
 import { router } from "./routes";
 
@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(router);
 
 app.use(
-  (err: Error, request: Request, response: Response, next: NextFunction) => {
-    if (err instanceof AppError) {
+  (err: Error, request: Request, response: Response, _: NextFunction): any => {
+    if (err instanceof AppErrors) {
       return response.status(err.statusCode).json({
         status: "error",
         message: err.message,

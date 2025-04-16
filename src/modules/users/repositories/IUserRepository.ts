@@ -6,4 +6,5 @@ export interface IUserRepository {
   findByEmail(email: string): Promise<User | null>;
   create(data: ICreateUserDTO): Promise<void>;
   save(user: User): Promise<void>;
+  comparePasswords(user: User, password: string): Promise<boolean>;
 }

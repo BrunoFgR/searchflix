@@ -26,6 +26,10 @@ class UserRepository implements IUserRepository {
   async create(data: ICreateUserDTO): Promise<void> {
     await this.userRepository.create(data);
   }
+
+  async comparePasswords(user: User, password: string): Promise<boolean> {
+    return await user.checkPassword(password);
+  }
 }
 
 export { UserRepository };
