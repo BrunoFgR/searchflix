@@ -7,6 +7,7 @@ import { IMovieRepository } from "@modules/movies/repositories";
 import { MovieRepository } from "@modules/movies/infra/sequelize/repositories";
 
 import "@modules/users/providers";
+import "@modules/movies/providers";
 
 container.registerSingleton<IUserRepository>("UserRepository", UserRepository);
 container.registerSingleton<IMovieRepository>(

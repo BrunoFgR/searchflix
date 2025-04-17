@@ -1,8 +1,16 @@
 import { AppErrors } from "@shared/errors";
 import { inject, injectable } from "tsyringe";
 import { IUpdateMovieDTO } from "../dtos";
-import { Movie } from "../infra/sequelize/entities";
 import { MovieRepository } from "../infra/sequelize/repositories";
+
+interface IResponse {
+  id: string;
+  title: string;
+  description: string;
+  released_year: number;
+  created_at: Date;
+  updated_at: Date;
+}
 
 @injectable()
 class UpdateMovieByIdService {
@@ -15,7 +23,7 @@ class UpdateMovieByIdService {
     movie_id: string,
     user_id: string,
     data: IUpdateMovieDTO,
-  ): Promise<Movie> {
+  ): Promise<IResponse> {
     const movie = await this.movieRepository.findById(movie_id);
 
     if (!movie) {
@@ -30,7 +38,14 @@ class UpdateMovieByIdService {
 
     await this.movieRepository.update(movie);
 
-    return movie;
+    return {
+      id: movie.id,
+      title: movie.title,
+      description: movie.description,
+      released_year: movie.released_year,
+      created_at: movie.created_at,
+      updated_at: movie.updated_at,
+    };
   }
 }
 

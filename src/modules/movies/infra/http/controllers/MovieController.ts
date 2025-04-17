@@ -2,10 +2,12 @@ import { Request, Response } from "express";
 import {
   CreateMovieService,
   ListMovieByUserIdService,
+  UpdateMovieByIdService,
+  DeleteMovieByIdService,
+  SearchMovieService,
+  GetMovieDetailService,
 } from "@modules/movies/services";
 import { container } from "tsyringe";
-import { UpdateMovieByIdService } from "@modules/movies/services/UpdateMovieByIdService";
-import { DeleteMovieByIdService } from "@modules/movies/services/DeleteMovieByIdService";
 
 class MovieController {
   async create(req: Request, res: Response): Promise<any> {
@@ -61,6 +63,26 @@ class MovieController {
     await deleteMovieByIdService.execute(id, user_id);
 
     return res.status(200).json({ message: "Movie deleted successfully" });
+  }
+
+  async searchMovies(req: Request, res: Response): Promise<any> {
+    const { title, page } = req.query as { title: string; page?: string };
+
+    const searchMoviesService = container.resolve(SearchMovieService);
+
+    const movies = await searchMoviesService.execute(title, page);
+
+    return res.status(200).json(movies);
+  }
+
+  async getMovieDetail(req: Request, res: Response): Promise<any> {
+    const { title } = req.params as { title: string };
+
+    const getMovieDetailService = container.resolve(GetMovieDetailService);
+
+    const movie = await getMovieDetailService.execute(title);
+
+    return res.status(200).json(movie);
   }
 }
 
