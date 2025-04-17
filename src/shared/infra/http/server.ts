@@ -5,6 +5,7 @@ import swaggerSpec from "@config/swagger";
 import swaggerUi from "swagger-ui-express";
 import { router } from "./routes";
 import { AppErrors } from "@shared/errors";
+import cors from "cors";
 
 import "@shared/infra/db/sequelize";
 
@@ -12,6 +13,7 @@ import "@shared/container";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use("/api", router);
 
@@ -31,7 +33,12 @@ app.get("/swagger.json", (_, res) => {
 });
 
 app.use(
-  (err: Error, request: Request, response: Response, _: NextFunction): any => {
+  (
+    err: Error,
+    _request: Request,
+    response: Response,
+    _next: NextFunction,
+  ): any => {
     if (err instanceof AppErrors) {
       return response.status(err.statusCode).json({
         status: "error",

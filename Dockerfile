@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copiar os arquivos da aplicação
-# COPY . .
+COPY . .
 
 # Expor a porta que sua aplicação usa
 EXPOSE 3000
