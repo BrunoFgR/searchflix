@@ -1,16 +1,34 @@
 import "reflect-metadata";
 import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
+import swaggerSpec from "@config/swagger";
+import swaggerUi from "swagger-ui-express";
+import { router } from "./routes";
+import { AppErrors } from "@shared/errors";
+
+import "@shared/infra/db/sequelize";
 
 import "@shared/container";
-import { AppErrors } from "@shared/errors";
-import "@shared/infra/db/sequelize";
-import { router } from "./routes";
 
 const app = express();
 
 app.use(express.json());
 app.use("/api", router);
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    explorer: true,
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Minha API - Documentação",
+  }),
+);
+
+app.get("/swagger.json", (_, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
 
 app.use(
   (err: Error, request: Request, response: Response, _: NextFunction): any => {
