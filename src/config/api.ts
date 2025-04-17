@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://www.omdbapi.com/",
+  baseURL: process.env.MOVIE_API_URL,
   params: {
-    apikey: process.env.API_KEY,
+    apikey: process.env.MOVIE_API_KEY,
   },
 });
 

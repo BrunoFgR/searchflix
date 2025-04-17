@@ -9,10 +9,12 @@ movieRoutes.use(ensureAuthenticated);
 
 /**
  * @swagger
- * /movies:
+ * /api/movies:
  *   post:
  *     summary: Create a new movie
  *     tags: [Movies]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -36,10 +38,12 @@ movieRoutes.use(ensureAuthenticated);
 movieRoutes.post("/", movieController.create);
 /**
  * @swagger
- * /movies:
+ * /api/movies:
  *   get:
  *     summary: Get all movies
  *     tags: [Movies]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of movies
@@ -57,10 +61,12 @@ movieRoutes.post("/", movieController.create);
 movieRoutes.get("/", movieController.list);
 /**
  * @swagger
- * /movies/{id}:
+ * /api/movies/{id}:
  *   put:
  *     summary: Update a movie
  *     tags: [Movies]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -91,10 +97,12 @@ movieRoutes.get("/", movieController.list);
 movieRoutes.put("/:id", movieController.update);
 /**
  * @swagger
- * /movies/{id}:
+ * /api/movies/{id}:
  *   delete:
  *     summary: Delete a movie
  *     tags: [Movies]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -115,10 +123,12 @@ movieRoutes.put("/:id", movieController.update);
 movieRoutes.delete("/:id", movieController.delete);
 /**
  * @swagger
- * /movies/search:
+ * /api/movies/search:
  *   get:
  *     summary: Search movies
  *     tags: [Movies]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: title
@@ -144,10 +154,12 @@ movieRoutes.delete("/:id", movieController.delete);
 movieRoutes.get("/search", movieController.searchMovies);
 /**
  * @swagger
- * /movies/{title}/details:
+ * /api/movies/{title}/details:
  *   get:
  *     summary: Get movie details
  *     tags: [Movies]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: title

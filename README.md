@@ -80,7 +80,7 @@ DB_PORT=5432
 
 # JWT
 JWT_SECRET=suachavesecreta
-JWT_EXPIRATION=8h
+JWT_EXPIRATION=60 * 60 * 24
 
 # API Externa de Filmes
 MOVIE_API_KEY=sua_chave_api
@@ -135,9 +135,6 @@ http://localhost:3000/api-docs
 4. Faça push para a branch (`git push origin feature/nova-funcionalidade`)
 5. Abra um Pull Request
 
-## Licença
-
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## Contato
 

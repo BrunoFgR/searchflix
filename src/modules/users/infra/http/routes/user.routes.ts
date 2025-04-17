@@ -7,7 +7,7 @@ const userRoutes = Router();
 
 /**
  *@swagger
- * /users:
+ * /api/users:
  *   post:
  *     summary: Create a new user
  *     tags: [Users]

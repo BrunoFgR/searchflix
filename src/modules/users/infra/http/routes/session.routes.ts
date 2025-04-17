@@ -7,7 +7,7 @@ const sessionRoutes = Router();
 
 /**
  * @swagger
- * /session:
+ * /api/session:
  *   post:
  *     summary: Create a new session
  *     tags: [Session]
